@@ -44,7 +44,21 @@
 秒杀：NewBeeMallSeckillMapper NewBeeMallSeckillSuccessMapper  <br/>
 购物车：NewBeeMallShoppingCartItemMapper  <br/>
 
-
+### 工具类
+BeanUtil--copyProperties() copyList() toMap()  <br/>
+HttpUtil--isAjaxRequest():判断当前请求是否是ajax请求  <br/>
+IOUti--getBytes() <br/>
+JsonUti--没有用到 <br/>
+MD5Util--MD5Encode():md5加密 <br/>
+NewBeeMallUtils--getHost() cleanString() <br/>
+NumberUtil--isPhone():判断是否为11位电话号码 genRandomNum():生成指定长度的随机数 genOrderNo():生成订单流水号 <br/>
+PageQueryUtil:分页查询参数 <br/>
+PageResult<T>：分页工具类 <br/>
+PatternUtil--validKeyword():验证只包含中英文和数字的字符串 isEmail():判断是否是邮箱 isURL():判断是否是网址 <br/>
+Result<T>:封装的结果 <br/>
+ResultGenerator:响应结果生成工具 <br/>
+SpringContextUtil：spring应用上下文工具 <br/>
+SystemUtil--genToken():登录或注册成功后,生成保持用户登录状态会话token值 <br/> 
 
 
 
