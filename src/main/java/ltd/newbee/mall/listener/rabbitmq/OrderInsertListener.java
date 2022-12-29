@@ -29,6 +29,7 @@ public class OrderInsertListener {
     @Autowired
     private NewBeeMallOrderMapper newBeeMallOrderMapper;
 
+    //TODO 出错可以考虑去除相关的订单项和购物车存储数据
     @RabbitHandler
     public void receiveInsertOrder(String orderInJson){
         NewBeeMallOrder order = JSON.parseObject(orderInJson, NewBeeMallOrder.class);
