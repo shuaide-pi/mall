@@ -7,6 +7,7 @@ $(function () {
             {label: '订单号', name: 'orderNo', index: 'orderNo', width: 120},
             {label: '订单总价', name: 'totalPrice', index: 'totalPrice', width: 60},
             {label: '订单状态', name: 'orderStatus', index: 'orderStatus', width: 80, formatter: orderStatusFormatter},
+            {label: '退款状态', name: 'refundStatus', index: 'refundStatus', width: 60, formatter: refundStatusFormatter},
             {label: '支付方式', name: 'payType', index: 'payType', width: 80,formatter:payTypeFormatter},
             {label: '收件人地址', name: 'userAddress', index: 'userAddress', width: 10, hidden: true},
             {label: '收件人名称', name: 'userName', index: 'userName', width: 10, hidden: true},
@@ -89,6 +90,19 @@ $(function () {
         }
         if (cellvalue == 2) {
             return "微信支付";
+        }
+    }
+
+    function refundStatusFormatter(cellvalue){
+        //退款状态：-1.无 0.未退款 1.已退款
+        if(cellvalue == -1){
+            return "无";
+        }
+        if(cellvalue == 0){
+            return "未退款";
+        }
+        if(cellvalue == 1){
+            return "已退款";
         }
     }
 

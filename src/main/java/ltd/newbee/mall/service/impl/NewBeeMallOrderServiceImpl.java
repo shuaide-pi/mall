@@ -96,7 +96,31 @@ public class NewBeeMallOrderServiceImpl implements NewBeeMallOrderService {
     public PageResult getNewBeeMallOrdersPage(PageQueryUtil pageUtil) {
         List<NewBeeMallOrder> newBeeMallOrders = newBeeMallOrderMapper.findNewBeeMallOrderList(pageUtil);
         int total = newBeeMallOrderMapper.getTotalNewBeeMallOrders(pageUtil);
-        return new PageResult(newBeeMallOrders, total, pageUtil.getLimit(), pageUtil.getPage());
+        List<NewBeeMallOrderRefundVo> norvs = new ArrayList<>();
+        //将订单对象和一个退款状态标志封装到一个新的封装对象中
+        //根据退款表中的状态来判别
+        for(NewBeeMallOrder o : newBeeMallOrders){
+            NewBeeMallOrderRefundVo norv = new NewBeeMallOrderRefundVo();
+            BeanUtil.copyProperties(o, norv);
+            List<AlipayRefundRecord> refundRecords = alipayRefundRecordMapper.selectByOrderNo(o.getOrderNo());
+            //不存在记录则直接使用默认的-1
+            if(refundRecords != null && refundRecords.size() > 0){
+                boolean flag = true;
+                for(AlipayRefundRecord r : refundRecords){
+                    //只要出现一个未退款记录则为订单记录定为未退款记录
+                    if(r.getStatus() == 0){
+                        flag = false;
+                        break;
+                    }
+                }
+                //存在退款记录且不存在任何未退款记录时记为已退款（这里也是只有存在全额退款记录的时候才能成立）
+                //否则则应该将已退款划分为部分退款和全额退款
+                norv.setRefundStatus((byte) (flag ? 1 : 0));
+            }
+            norvs.add(norv);
+        }
+
+        return new PageResult(norvs, total, pageUtil.getLimit(), pageUtil.getPage());
     }
 
     //TODO 这种整体的查询后续可以改为es实现
