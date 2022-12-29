@@ -36,7 +36,7 @@ public class RedisKeyExpirationListener extends KeyExpirationEventMessageListene
         }
     }
 
-    //将过期订单的订单No传到mq中，后台监听并在数据库中进行删除
+    //将过期订单的订单No传到mq中，后台监听并在数据库中进行超时关闭
     private void toMq(String orderNo){
         rabbitTemplate.convertAndSend(RabbitmqConstant.ORDER_EXCHANGE,
                 RabbitmqConstant.ORDER_DELETE_ROUTE_KEY,
