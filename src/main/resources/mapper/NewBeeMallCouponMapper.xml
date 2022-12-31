@@ -304,6 +304,7 @@
             t.is_deleted = 0
             AND t.coupon_type = 0
             AND t.coupon_status = 0
+            AND UNIX_TIMESTAMP(coupon_end_time) >= UNIX_TIMESTAMP(NOW())
         </where>
     </select>
     <select id="selectByIds" resultMap="BaseResultMap">

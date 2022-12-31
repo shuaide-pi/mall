@@ -29,7 +29,12 @@ public class NewBeeMallUserCouponServiceImpl implements NewBeeMallUserCouponServ
     @Autowired
     private NewBeeMallGoodsMapper newBeeMallGoodsMapper;
     @Override
+    /**
+     * 查询展示优惠券
+     */
     public List<NewBeeMallCouponVO> selectAvailableCoupon(Long userId) {
+        //得到 未删除的（0） 可领用的（0） 未过期失效（0）
+        //增加日期判断
         List<NewBeeMallCoupon> coupons = newBeeMallCouponMapper.selectAvailableCoupon();
         List<NewBeeMallCouponVO> couponVOS = BeanUtil.copyList(coupons, NewBeeMallCouponVO.class);
         for (NewBeeMallCouponVO couponVO : couponVOS) {
