@@ -47,4 +47,4 @@ hs_err_pid*
 /dist/
 /nbdist/
 /.nb-gradle/
-/src/main/java/ltd/newbee/mall/controller/admin/AdminController.java
+
