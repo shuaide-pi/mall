@@ -1,29 +1,17 @@
 package ltd.newbee.mall.service.impl;
 
-import ltd.newbee.mall.common.NewBeeMallException;
-import ltd.newbee.mall.controller.vo.NewBeeMallCouponVO;
-import ltd.newbee.mall.controller.vo.NewBeeMallMyCouponVO;
-import ltd.newbee.mall.controller.vo.NewBeeMallShoppingCartItemVO;
+
 import ltd.newbee.mall.dao.GoodsCategoryMapper;
 import ltd.newbee.mall.dao.NewBeeMallCouponMapper;
-import ltd.newbee.mall.dao.NewBeeMallGoodsMapper;
-import ltd.newbee.mall.dao.NewBeeMallUserCouponRecordMapper;
-import ltd.newbee.mall.entity.GoodsCategory;
 import ltd.newbee.mall.entity.NewBeeMallCoupon;
-import ltd.newbee.mall.entity.NewBeeMallGoods;
-import ltd.newbee.mall.entity.NewBeeMallUserCouponRecord;
 import ltd.newbee.mall.service.NewBeeMallCouponService;
-import ltd.newbee.mall.util.BeanUtil;
 import ltd.newbee.mall.util.PageQueryUtil;
 import ltd.newbee.mall.util.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class NewBeeMallCouponServiceImpl implements NewBeeMallCouponService {
@@ -32,12 +20,8 @@ public class NewBeeMallCouponServiceImpl implements NewBeeMallCouponService {
     private NewBeeMallCouponMapper newBeeMallCouponMapper;
 
     @Autowired
-    private NewBeeMallUserCouponRecordMapper newBeeMallUserCouponRecordMapper;
-
-    @Autowired
-    private NewBeeMallGoodsMapper newBeeMallGoodsMapper;
-    @Autowired
     private GoodsCategoryMapper goodsCategoryMapper;
+
     @Override
     public PageResult getCouponPage(PageQueryUtil pageUtil) {
         List<NewBeeMallCoupon> carousels = newBeeMallCouponMapper.findCouponlList(pageUtil);
@@ -69,14 +53,14 @@ public class NewBeeMallCouponServiceImpl implements NewBeeMallCouponService {
         if(goodsValues.length == 1){
             gvalue.append(goodsValues[0]+",");
             if(goodsType == 1){
-                System.out.println("goodsValues[0]："+goodsValues[0]);
                 Long[] categoryIds = goodsCategoryMapper.getCategoryIdByParentId(Long.parseLong(goodsValues[0]));
                 if(categoryIds.length > 0){
                     for (int i = 0; i < categoryIds.length; i++) {
                         if (i < categoryIds.length-1){
                             gvalue.append(categoryIds[i]+",");
+                        }else {
+                            gvalue.append(categoryIds[i]);
                         }
-                        gvalue.append(categoryIds[i]);
                     }
                 }
             }
@@ -94,13 +78,13 @@ public class NewBeeMallCouponServiceImpl implements NewBeeMallCouponService {
                 for (int i = 0; i < categoryIds.length; i++) {
                     if(i < categoryIds.length-1){
                         gvalue.append(categoryIds[i]+",");
+                    }else {
+                        gvalue.append(categoryIds[i]);
                     }
-                    gvalue.append(categoryIds[i]);
                 }
             }
             newBeeMallCoupon.setGoodsValue(gvalue.toString());
         }
-        System.out.println(gvalue+":+++++++++++");
         return newBeeMallCouponMapper.insertSelective(newBeeMallCoupon) > 0;
     }
 
