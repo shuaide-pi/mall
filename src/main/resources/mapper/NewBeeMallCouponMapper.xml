@@ -321,7 +321,8 @@
         <include refid="Base_Column_List"/>
         from tb_newbee_mall_coupon
         where is_deleted = 0 and coupon_type = 1
-        and coupon_start_time <![CDATA[ < ]]> now()
-        and coupon_end_time <![CDATA[ > ]]> now()
+        and unix_timestamp(coupon_end_time) >UNIX_TIMESTAMP(NOW())
+        /*and coupon_start_time <![CDATA[ < ]]> now()
+        and coupon_end_time <![CDATA[ > ]]> now()*/
     </select>
 </mapper>

@@ -6,6 +6,7 @@ import ltd.newbee.mall.common.ServiceResultEnum;
 import ltd.newbee.mall.controller.vo.NewBeeMallUserVO;
 import ltd.newbee.mall.entity.MallUser;
 import ltd.newbee.mall.service.NewBeeMallCouponService;
+import ltd.newbee.mall.service.NewBeeMallUserCouponService;
 import ltd.newbee.mall.service.NewBeeMallUserService;
 import ltd.newbee.mall.util.HttpUtil;
 import ltd.newbee.mall.util.MD5Util;
@@ -25,9 +26,6 @@ public class PersonalController {
 
     @Resource
     private NewBeeMallUserService newBeeMallUserService;
-
-    @Autowired
-    private NewBeeMallCouponService newBeeMallCouponService;
 
     @GetMapping("/personal")
     public String personalPage(HttpServletRequest request,
